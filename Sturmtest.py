@@ -5,18 +5,19 @@
 # This notebook will test a bag of words approach for Sturmjäger.
 
 
-import re, os
+import re
 import tweepy
 import plotly.plotly as py
 import plotly.graph_objs as go
 from IPython.display import clear_output
+import tokens
 
 
 # Set the private Twitter API keys.
-consumer_key = ""
-consumer_secret = ""
-access_token = ""
-access_token_secret = ""
+consumer_key = tokens.consumer_key
+consumer_secret = tokens.consumer_secret
+access_token = tokens.access_token
+access_token_secret = tokens.access_token_secret
 
 # Pass tokens to Tweepy's OAuthHandler.
 auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
@@ -82,12 +83,6 @@ def print_result_count(result):
     else:
         print("There are " + str(result) + " matches.")
 
-def test(string, re_patterns):
-    result = False
-    for pattern in re_patterns:
-        result = result or re.match(pattern, string)
-    return print_result(result)
-
 def test_count(string, re_patterns):
     string = str.lower(string)
     result = 0
@@ -101,12 +96,12 @@ def print_count(string, re_patterns):
 
 
 #TODO: define a class for results including methods to return stats & baddies
-def test_followers(user):
+def test_followers(user, re_patterns):
     follower_ids = api.followers_ids(user)
     
     results = []
     baddies = []
-    num_results = 10
+    num_results = 100
     start = 0
     
     for i in range(start,start+num_results):
@@ -115,13 +110,17 @@ def test_followers(user):
         except Exception:
             continue
             
-    #    print_result_count(test_count(str(userdata)))
-        result = test_count(userdata.description) + test_count(userdata.screen_name) + test_count(userdata.name)
+        result = test_count(userdata.description, re_patterns)
+        result += test_count(userdata.screen_name, re_patterns)
+        result += test_count(userdata.name, re_patterns)
+        
         results.append(result)
         
+        # Add detected Nazis to the list of baddies.
         if result != 0:
             baddies.append(userdata)
         
+        # Report scanning progress in console.
         if i % 10 == 0:
             clear_output()
             print(str((i-start)/num_results*100) + "% complete")
@@ -163,5 +162,6 @@ def print_baddies(baddies):
         
 
 user = "Goyveyim"
-results = test_followers(user)
+re_patterns = init(words)
+results = test_followers(user, re_patterns)
 print_results(results)
