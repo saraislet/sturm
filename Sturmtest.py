@@ -27,9 +27,6 @@ api = tweepy.API(auth)
 # Define the bag of words
 words = ["kekistan",
         "#kek",
-        "1488",
-        "14/88",
-        "14-88",
         "14words",
         "14 words",
         "14 wrds",
@@ -96,23 +93,37 @@ def print_count(string, re_patterns):
 
 
 #TODO: define a class for results including methods to return stats & baddies
-def test_followers(user, re_patterns):
-    follower_ids = api.followers_ids(user)
+#TODO: build try/exception methods
+#TODO: test rate limit
     
+def test_followers(user, re_patterns, num_results):
+    # Evaluate a list of followers for Nazis. Return an array of scores.
+    return test_list(api.followers_ids(user), re_patterns, num_results)
+
+def test_follows(user, re_patterns, num_results):
+    # Evaluate a list of friends for Nazis. Return an array of scores.
+    return test_list(api.friends_ids(user), re_patterns, num_results)
+    
+    
+def test_list(userlist, re_patterns, num_results):
+    # Evaluate a list of users for Nazis. Return an array of scores.
     results = []
+    global baddies
     baddies = []
-    num_results = 100
     start = 0
     
     for i in range(start,start+num_results):
         try:
-            userdata = api.get_user(follower_ids[i])
+            userdata = api.get_user(userlist[i])
         except Exception:
             continue
             
         result = test_count(userdata.description, re_patterns)
         result += test_count(userdata.screen_name, re_patterns)
         result += test_count(userdata.name, re_patterns)
+        result += test_1488(userdata.description)
+        result += test_1488(userdata.screen_name)
+        result += test_1488(userdata.name)
         
         results.append(result)
         
@@ -121,11 +132,21 @@ def test_followers(user, re_patterns):
             baddies.append(userdata)
         
         # Report scanning progress in console.
-        if i % 10 == 0:
+        if i % 20 == 0:
             clear_output()
-            print(str((i-start)/num_results*100) + "% complete")
+            print(str(int((i-start)/num_results*100)) + "% complete")
     clear_output()
     return(results)
+
+def test_1488(string):
+    # Match 14 and 88 only if no digit precedes nor follows.
+    # 14 and 88 may be separated by a single non-digit.
+    # e.g., matches: 1488, 14/88, 14.88, asdf1488jkl, 13-14-88a, a14 88b.
+    # e.g., non-matches: 14288, 14--88, 5551488555, 714/88.
+    if re.match(r".*(?<!\d)14[\D]?88(?!\d)", string):
+        return 1
+    else:
+        return 0
 
 
 def print_results(results):
@@ -151,17 +172,26 @@ def print_results(results):
     
     py.iplot(data, filename='basic-bar')
 
-def print_baddies(baddies):
+def print_baddies_details(baddies):
+    # Print a list of
     countIter = iter([x for x in range(0,len(baddies))])
     
-    for baddie in baddies:
-        print(str(next(countIter)) + ": " + baddie.name + " / @" + baddie.screen_name 
-             + " / https://www.twitter.com/" + baddie.screen_name)
-        print(baddie.description)
-        
+    for user in baddies:
+        print(str(next(countIter)) + ": " + user.name + " / @" + user.screen_name 
+             + " / https://www.twitter.com/" + user.screen_name)
+        print(user.description)
+
+def get_baddies_names(baddies):
+    # Return an array of screen_names from baddies.
+    return [user.screen_name for user in baddies]
+
+def check_rate():
+    # Check rate limit status, return dict.
+    return api.rate_limit_status()['resources']
         
 
-user = "Goyveyim"
+user = "yonatanzunger"
+num_results = 2000
 re_patterns = init(words)
-results = test_followers(user, re_patterns)
+results = test_followers(user, re_patterns, num_results)
 print_results(results)
