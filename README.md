@@ -3,7 +3,7 @@
 
 The code currently uses a bag of words to develop and test some basic methods (and to help bring in additional training data). Testing demonstrated 14-22% rates of Nazi detection using only name, screen_name, and profile description.
 
-This project's goal is to develop a Twitter sign-in UI for users to assess tweets or accounts. 
+This project's goal is to develop a Twitter sign-in UI for users to assess tweets or accounts--like the [Twitter Block Chain plugin](https://github.com/satsukitv/twitter-block-chain), but enhanced with a Nazi detector.
 
 
 ## Use case
