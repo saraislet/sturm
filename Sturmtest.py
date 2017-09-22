@@ -112,8 +112,7 @@ def test_follows(user, re_patterns, num_results):
     
 def test_list(userlist, re_patterns, num_results):
     # Evaluate a list of users for Nazis. Return an array of scores.
-    results = []
-    global baddies
+    scores = []
     baddies = []
     start = 0
     
@@ -123,17 +122,17 @@ def test_list(userlist, re_patterns, num_results):
         except Exception:
             continue
             
-        result = test_count(userdata.description, re_patterns)
-        result += test_count(userdata.screen_name, re_patterns)
-        result += test_count(userdata.name, re_patterns)
-        result += test_1488(userdata.description)
-        result += test_1488(userdata.screen_name)
-        result += test_1488(userdata.name)
+        score = test_count(userdata.description, re_patterns)
+        score += test_count(userdata.screen_name, re_patterns)
+        score += test_count(userdata.name, re_patterns)
+        score += test_1488(userdata.description)
+        score += test_1488(userdata.screen_name)
+        score += test_1488(userdata.name)
         
-        results.append(result)
+        scores.append(score)
         
         # Add detected Nazis to the list of baddies.
-        if result != 0:
+        if score != 0:
             baddies.append(userdata)
         
         # Report scanning progress in console.
@@ -141,6 +140,8 @@ def test_list(userlist, re_patterns, num_results):
             clear_output()
             print(str(int((i-start)/num_results*100)) + "% complete")
     clear_output()
+    
+    results = Results(scores, baddies)
     return(results)
 
 def test_1488(string):
@@ -154,21 +155,21 @@ def test_1488(string):
         return 0
 
 
-def print_results(results):
+def print_results(scores):
     x = [str(x) for x in range(0,5)]
     x.append("5+")
     y = []
     sum = 0
     for i in range(0,5):
-        count = results.count(i)
+        count = scores.count(i)
         y.append(count)
         sum += count
-    y.append(len(results) - sum)
+    y.append(len(scores) - sum)
     print(str(x))
     print(str(y))
-    total = len(results) - y[0]
-    ratio = round(total/len(results)*100, 1)
-    print(str(ratio) + "% identified as Nazis (" + str(total) + " of " + str(len(results)) + " tested)")
+    total = len(scores) - y[0]
+    ratio = round(total/len(scores)*100, 1)
+    print(str(ratio) + "% identified as Nazis (" + str(total) + " of " + str(len(scores)) + " tested)")
     
     data = [go.Bar(
                 x=x,
@@ -177,7 +178,7 @@ def print_results(results):
     
     py.iplot(data, filename='basic-bar')
 
-def print_baddies_details(baddies=baddies):
+def print_baddies_details(baddies):
     # Print a list containing names, screen_names, and profile descriptions.
     countIter = iter([x for x in range(0,len(baddies))])
     
@@ -186,11 +187,7 @@ def print_baddies_details(baddies=baddies):
              + " / https://www.twitter.com/" + user.screen_name)
         print(user.description)
 
-def get_baddies(baddies=baddies):
-    # Returns a list of baddies.
-    return baddies
-
-def get_baddies_names(baddies=baddies):
+def get_baddies_names(baddies):
     # Return an array of screen_names from baddies.
     return [user.screen_name for user in baddies]
 
@@ -206,6 +203,29 @@ def check_rate_lookup():
     # Check rate limit status for batch user lookups, return int.
     return api.rate_limit_status()['resources']['users']['/users/lookup']['remaining']
         
+
+class Results(object):
+    """
+    Results contain attributes and basic methods:
+        
+    Attributes:
+        num_results: integer number of results requested
+        scores: integer array of scores returned from assessment
+        num_baddies: integer number of non-zero scores
+        ratio: ratio of results that are baddies
+        baddies_names: string array of screen_names for baddies
+        baddies: list of user data objects for baddies
+    """
+    
+    def __init__(self, scores, baddies):
+        # Return a Results object with scores array and baddies list.
+        self.scores = scores
+        self.baddies = baddies
+        self.num_results = len(scores)
+        self.num_baddies = len(baddies)
+        self.ratio = len(baddies)/len(scores)
+        self.baddies_names = get_baddies_names(baddies)
+
 
 #user = "yonatanzunger"
 #num_results = 800

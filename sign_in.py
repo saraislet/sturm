@@ -88,8 +88,8 @@ def my_form_post():
     re_patterns = st.init(st.words)
     st.set_api(api_user)
     results = st.test_followers(user, re_patterns, num_results)
-    st.print_results(results)
-    baddies = st.get_baddies()
+    st.print_results(results.scores)
+    baddies = results.get_baddies()
     
     return flask.render_template('results.html', 
                              user = user,
