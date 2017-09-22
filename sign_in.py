@@ -6,7 +6,7 @@ Created on Tue Sep 12 20:12:44 2017
 """
 
 import os, re
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, redirect
 import flask
 import tweepy
 import Sturmtest as st
@@ -29,17 +29,18 @@ db = dict()
 def send_token():
     redirect_url = ""
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret, callback_url)
-    redirect_url = auth.get_authorization_url()
+#    redirect_url = auth.get_authorization_url()
 
     try: 
         #get the request tokens
-#        redirect_url= auth.get_authorization_url()
+        redirect_url= auth.get_authorization_url()
         session['request_token'] = auth.request_token
+        
+        return render_template('start.html', redirect_url = redirect_url)
     except tweepy.TweepError:
         print('Error! Failed to get request token')
+        return redirect('../')
 
-    #this is twitter's url for authentication
-    return render_template('start.html', redirect_url = redirect_url)
 
 
 
@@ -57,28 +58,34 @@ def get_verification():
     auth.request_token = token
 
     try:
-            auth.get_access_token(verifier)
-    except tweepy.TweepError:
-            print('Error! Failed to get access token.')
-
-    #now you have access!
-    global api_user
-    api_user = tweepy.API(auth)
-
-    #store in a db
-    db['api']=api_user
-    db['access_token_key']=auth.access_token
-    db['access_token_secret']=auth.access_token_secret
-    print("Variable db contains: " + str(db))
-    userdata = api_user.me()
-
-    return flask.render_template('app.html', 
+        auth.get_access_token(verifier)
+        global api_user
+        api_user = tweepy.API(auth)
+        userdata = api_user.me()
+        
+        #store in a db
+        db['api']=api_user
+        db['access_token_key']=auth.access_token
+        db['access_token_secret']=auth.access_token_secret
+        print("Variable db contains: " + str(db))
+        
+        return flask.render_template('app.html', 
                                  name = userdata.name, 
                                  screen_name = userdata.screen_name, 
                                  bg_color = userdata.profile_background_color, 
                                  followers_count = userdata.followers_count, 
                                  created_at = userdata.created_at,
                                  logged_in = True)
+        
+    except tweepy.TweepError:
+        print('Error! Failed to get access token.')
+        
+        return redirect('../')
+
+
+    
+
+    
 
 @app.route('/main')
 def main():
