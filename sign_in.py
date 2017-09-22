@@ -10,7 +10,6 @@ from flask import Flask, request, render_template
 import flask
 import tweepy
 #from tweepy.auth import OAuthHandler
-#import twitter_followers as tf
 
 app = Flask(__name__)
 #app.config.from_pyfile('config.cfg', silent=True)
@@ -22,7 +21,6 @@ consumer_secret = os.environ['consumer_secret']
 
 
 callback_url = 'https://murmuring-wildwood-21076.herokuapp.com/verify'
-#callback_url = 'oob'
 session = dict()
 db = dict()
 
@@ -32,20 +30,14 @@ def send_token():
     redirect_url = ""
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret, callback_url)
 
-#    redirect_url= auth.get_authorization_url()
-
     try: 
         #get the request tokens
         redirect_url= auth.get_authorization_url()
-#        session['request_token']= (auth.request_token['oauth_token'],
-#            auth.request_token['oauth_token_secret'])
-#        session.set('request_token', auth.request_token)
         session['request_token']= auth.request_token
     except tweepy.TweepError:
         print('Error! Failed to get request token')
 
     #this is twitter's url for authentication
-#    return flask.redirect(redirect_url)
     return render_template('start.html', redirect_url = redirect_url)
 
 
@@ -85,8 +77,6 @@ def get_verification():
                                  followers_count = userdata.followers_count, 
                                  created_at = userdata.created_at)
 
-#    return flask.redirect(flask.url_for('start'))
-
 
 @app.route("/start")
 def start():
@@ -94,7 +84,6 @@ def start():
     print("Variable db contains: " + str(db))
     api = db['api']
     userdata = api.me()
-#    tf.main(userdata, api)
 
     return flask.render_template('followers.html', 
                                  name = userdata.name, 
