@@ -1,8 +1,7 @@
 <html>
 <head>
-    <title>Website</title>
-    <link rel="stylesheet" href="css/w3.css">
-    <!-- <link rel="stylesheet" href="css/TF-app.css"> -->
+    <title>Sturmjäger</title>
+    <link rel="stylesheet" type= "text/css" href="{{ url_for('static',filename='css/w3b.css') }}">
 <style>
 @import url(http://fonts.googleapis.com/css?family=Amatic+SC:700);
  
@@ -22,8 +21,8 @@ h1{
 <body>
  {% block body %}{% endblock %}
  
- 	<div class="footer">
-		<p><small>Twitter Follower app by Sarai Rosenberg, 2017.</small></p>
-	</div>
+    <div class="footer">
+        <p><small><a href="https://github.com/Saraislet/sturm">Sturmjäger</a> app by Sarai Rosenberg, 2017.</small></p>
+    </div>
 </body>
 </html>
