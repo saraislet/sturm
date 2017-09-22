@@ -62,15 +62,15 @@ def get_verification():
             print('Error! Failed to get access token.')
 
     #now you have access!
-    global api
-    api = tweepy.API(auth)
+    global api_user
+    api_user = tweepy.API(auth)
 
     #store in a db
-    db['api']=api
+    db['api']=api_user
     db['access_token_key']=auth.access_token
     db['access_token_secret']=auth.access_token_secret
     print("Variable db contains: " + str(db))
-    userdata = api.me()
+    userdata = api_user.me()
 
     return flask.render_template('app.html', 
                                  name = userdata.name, 
@@ -86,8 +86,8 @@ def my_form_post():
     user = request.form['screen_name']
     num_results = 10
     re_patterns = st.init(st.words)
-    st.set_api(api)
-    results = st.test_followers(user, re_patterns, num_results, api)
+    st.set_api(api_user)
+    results = st.test_followers(user, re_patterns, num_results)
     st.print_results(results)
     baddies = st.get_baddies()
     
