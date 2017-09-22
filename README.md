@@ -18,12 +18,13 @@ This project's goal is to develop a Twitter sign-in UI for users to assess tweet
   
 * User enters a tweet's URL or status ID.
   * Sturmjäger offers to assess that tweet's likes or retweets for potential Nazis.
-  ...
+  * ...
   
 ### Questions:
 
 #### Initial, architecture questions
 * How long does it take to block a list of users?
+  * Current rate: approximately 250 seconds for 1000 users
 * What's the best way to handle API limits here?
 * In querying a list of users, should we display only the first 10, 20, 100? (Or include options?)
 * Can we store everything in memory while the app churns through a long list of users to assess or block?

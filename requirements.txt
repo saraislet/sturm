@@ -1,0 +1,4 @@
+gunicorn==19.6.0
+requests==2.9.1
+Flask==0.12
+tweepy==3.5.0

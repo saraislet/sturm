@@ -173,7 +173,7 @@ def print_results(results):
     py.iplot(data, filename='basic-bar')
 
 def print_baddies_details(baddies):
-    # Print a list of
+    # Print a list containing names, screen_names, and profile descriptions.
     countIter = iter([x for x in range(0,len(baddies))])
     
     for user in baddies:
@@ -188,10 +188,18 @@ def get_baddies_names(baddies):
 def check_rate():
     # Check rate limit status, return dict.
     return api.rate_limit_status()['resources']
+
+def check_rate_users():
+    # Check rate limit status for get user, return int.
+    return api.rate_limit_status()['resources']['users']['/users/show/:id']['remaining']
+
+def check_rate_lookup():
+    # Check rate limit status for batch user lookups, return int.
+    return api.rate_limit_status()['resources']['users']['/users/lookup']['remaining']
         
 
 user = "yonatanzunger"
-num_results = 2000
+num_results = 800
 re_patterns = init(words)
 results = test_followers(user, re_patterns, num_results)
 print_results(results)
