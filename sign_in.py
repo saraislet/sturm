@@ -86,7 +86,8 @@ def my_form_post():
     user = request.form['screen_name']
     num_results = 10
     re_patterns = st.init(st.words)
-    results = st.test_followers(user, re_patterns, num_results)
+    st.set_api(api)
+    results = st.test_followers(user, re_patterns, num_results, api)
     st.print_results(results)
     baddies = st.get_baddies()
     

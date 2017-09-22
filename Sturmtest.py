@@ -10,7 +10,7 @@ import tweepy
 import plotly.plotly as py
 import plotly.graph_objs as go
 from IPython.display import clear_output
-import sign_in
+#import sign_in
 #import tokens
 
 
@@ -23,7 +23,11 @@ import sign_in
 # Pass tokens to Tweepy's OAuthHandler.
 #auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
 #auth.set_access_token(access_token, access_token_secret)
-api = sign_in.api
+
+
+def set_api(api):
+    global api
+    api = api
 
 # Define the bag of words
 words = ["kekistan",
