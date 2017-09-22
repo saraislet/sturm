@@ -7,8 +7,8 @@
 
 import re
 import tweepy
-import plotly.plotly as py
-import plotly.graph_objs as go
+#import plotly.plotly as py
+#import plotly.graph_objs as go
 from IPython.display import clear_output
 #import sign_in
 #import tokens
@@ -171,12 +171,12 @@ def print_results(scores):
     ratio = round(total/len(scores)*100, 1)
     print(str(ratio) + "% identified as Nazis (" + str(total) + " of " + str(len(scores)) + " tested)")
     
-    data = [go.Bar(
-                x=x,
-                y=y
-        )]
-    
-    py.iplot(data, filename='basic-bar')
+#    data = [go.Bar(
+#                x=x,
+#                y=y
+#        )]
+#    
+#    py.iplot(data, filename='basic-bar')
 
 def print_baddies_details(baddies):
     # Print a list containing names, screen_names, and profile descriptions.
