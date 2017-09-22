@@ -5,7 +5,7 @@ Created on Tue Sep 12 20:12:44 2017
 @author: Sarai
 """
 
-import os
+import os, re
 from flask import Flask, request, render_template
 import flask
 import tweepy
@@ -89,7 +89,15 @@ def main():
 def sturm():
     
     user = request.form['screen_name']
-    num_results = 10
+    num_results = request.form['num_results']
+    
+    if num_results.isdigit():
+        num_results = int(num_results)
+    else:
+        num_results = 30
+        
+    user = re.sub(r"@","",user)
+    
     re_patterns = st.init(st.words)
     st.set_api(api_user)
     results = st.test_followers(user, re_patterns, num_results)

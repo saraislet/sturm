@@ -10,11 +10,14 @@
 <div class="w3-container">
 	<div class="w3-card-4" style="max-width:600px">
 		<div class="w3-container cobalt">
-			<h3>Enter a username to assess their followers</h3>
+			<h3>Assess followers:</h3>
 		</div>
 		<div class="w3-container">
 			<form action="/sturm" method="POST" class="w3-container">
+				<label>Twitter @ name to test:</label>
 			    <input type="text" name="screen_name" class="w3-input w3-border w3-light-grey w3-margin">
+			    <label>Number of followers to test:</label>
+			    <input type="text" name="num_results" value="20" class="w3-input w3-border w3-light-grey w3-margin">
 			    <input type="submit" name="my-form" value="Assess Followers" class="w3-btn cobalt w3-margin">
 			</form>
 		</div>
