@@ -21,7 +21,7 @@ consumer_secret = os.environ['consumer_secret']
 #OAUTH_TOKEN_SECRET = os.environ['TWITTER_OAUTH_TOKEN_SECRET']
 
 
-callback_url = 'https://murmuring-wildwood-21076.herokuapp.com/'
+callback_url = 'https://murmuring-wildwood-21076.herokuapp.com/verify'
 #callback_url = 'oob'
 session = dict()
 db = dict()
