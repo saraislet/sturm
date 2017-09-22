@@ -104,6 +104,8 @@ def sturm():
     st.print_results(results.scores)
     if results.num_baddies > 0:
         show_baddies = True
+    else:
+        show_baddies = False
     
     return flask.render_template('results.html', 
                              user = user,
