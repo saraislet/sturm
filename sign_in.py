@@ -89,11 +89,10 @@ def sturm():
     st.set_api(api_user)
     results = st.test_followers(user, re_patterns, num_results)
     st.print_results(results.scores)
-    baddies = results.get_baddies()
     
     return flask.render_template('results.html', 
                              user = user,
-                             baddies = baddies,
+                             baddies_names = results.baddies_names,
                              results = results.scores)
 
 

@@ -221,10 +221,10 @@ class Results(object):
         # Return a Results object with scores array and baddies list.
         self.scores = scores
         self.baddies = baddies
+        self.baddies_names = get_baddies_names(baddies)
         self.num_results = len(scores)
         self.num_baddies = len(baddies)
         self.ratio = len(baddies)/len(scores)
-        self.baddies_names = get_baddies_names(baddies)
 
 
 #user = "yonatanzunger"
