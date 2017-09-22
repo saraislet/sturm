@@ -1,18 +1,23 @@
 {% extends "layout.html" %}
 {% block body %}
  
-<div class="w3-container">
+<div class="w3c-ontainer">
 <h1>Hello {{name}}!</h1>
 	<h2>You have {{followers_count}} followers.</h2>
 	<p>
 	</p>
 </div>
 <div class="w3-container">
-	<div class="w3-card4">
-		<form action="." method="POST" class="w3-container">
-		    <input type="text" name="screen_name" class="w3-input">
-		    <input type="submit" name="my-form" value="Send">
-		</form>
+	<div class="w3-card-4">
+		<div class="w3-container cobalt">
+			<h2>Enter a username to assess their followers</h2>
+		</div>
+		<div class="w3-container">
+			<form action="." method="POST" class="w3-container">
+			    <input type="text" name="screen_name" class="w3-input w3-border w3-light-grey">
+			    <input type="submit" name="my-form" value="Send" class="w3-btn">
+			</form>
+		</div>
 	</div>
 </div>
 {% endblock %}

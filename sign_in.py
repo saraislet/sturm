@@ -29,12 +29,12 @@ db = dict()
 def send_token():
     redirect_url = ""
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret, callback_url)
-    redirect_url= auth.get_authorization_url()
+    redirect_url = auth.get_authorization_url()
 
     try: 
         #get the request tokens
 #        redirect_url= auth.get_authorization_url()
-        session['request_token']= auth.request_token
+        session['request_token'] = auth.request_token
     except tweepy.TweepError:
         print('Error! Failed to get request token')
 
@@ -94,8 +94,9 @@ def my_form_post():
     return flask.render_template('results.html', 
                              user = user,
                              baddies = baddies,
-                             results = results)
+                             results = results.scores)
 
 
 if __name__ == '__main__':
+    app.debug = True
     app.run()

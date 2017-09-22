@@ -1,0 +1,32 @@
+p, h1, h2 {
+	max-width: 600px;
+}
+
+a {
+    text-decoration: none;
+	color: #5555BB; 
+	/*border-bottom: dotted 1px rgba(128, 128, 128, 0.75);*/
+	transition: color 0.3s ease-in-out;
+	outline: 0;
+}
+  a:hover {
+			color: #38387B; 
+			/*border-bottom-color: rgba(255, 255, 255, 0);*/
+  }
+
+w3-btn {
+	transition: color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+	color:#fff!important;
+	background-color:#5555BB!important;
+}
+	.w3-btn:hover {
+		box-shadow:0 8px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+		transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+		background-color:#38387B!important;
+	}
+
+.cobalt,.hover-cobalt:hover
+{
+  color:#fff!important;
+  background-color:#5555BB!important;
+}

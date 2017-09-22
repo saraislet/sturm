@@ -2,16 +2,22 @@
 <head>
     <title>Sturmjäger</title>
     <link rel="stylesheet" type= "text/css" href="{{ url_for('static',filename='css/w3b.css') }}">
+    <link rel="stylesheet" type= "text/css" href="{{ url_for('static',filename='css/main.css') }}">
+    <!-- colors: 5555BB, 38387B, 1B1B3B -->
+    <!-- greys: D1C1E1, 968BA1, 4F4955, 37333B -->
+    <!-- contrast colors: 448830, 3C6E2D, A854EE, BB56B3 -->
+    <!-- subtle contrast: 886785 -->
+
 <style>
-@import url(http://fonts.googleapis.com/css?family=Amatic+SC:700);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans);
  
 body{
     text-align: center;    
 }
 h1{
-    font-family: 'Amatic SC', cursive;
+    font-family: 'Open Sans', sans-serif;
     font-weight: normal;
-    color: #8ac640;
+    color: #5555BB;
     font-size: 2.5em;
 }
  
@@ -19,8 +25,9 @@ h1{
  
 </head>
 <body>
- {% block body %}{% endblock %}
- 
+    <div class="w3-container">
+    {% block body %}{% endblock %}
+    </div>
     <div class="w3-footer">
         <p><small><a href="https://github.com/Saraislet/sturm">Sturmjäger</a> app by Sarai Rosenberg, 2017.</small></p>
     </div>
