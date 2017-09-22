@@ -1,4 +1,4 @@
-p, h1, h2 {
+text {
 	max-width: 600px;
 }
 
@@ -6,13 +6,13 @@ a {
     text-decoration: none;
 	color: #5555BB; 
 	/*border-bottom: dotted 1px rgba(128, 128, 128, 0.75);*/
-	transition: color 0.2s ease-in-out;
 	outline: 0;
 }
-  a:hover {
-			color: #886785; 
-			/*border-bottom-color: rgba(255, 255, 255, 0);*/
-  }
+    a:hover {
+		color: #886785; 
+		transition: color 0.2s ease-in-out;
+		/*border-bottom-color: rgba(255, 255, 255, 0);*/
+    }
 
 w3-btn {
 	/*transition: color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;*/

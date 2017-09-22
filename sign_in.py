@@ -80,9 +80,9 @@ def get_verification():
                                  created_at = userdata.created_at)
 
 
-@app.route('/start', methods=['POST'])
-def my_form_post():
-
+@app.route('/sturm', methods=['POST'])
+def sturm():
+    
     user = request.form['screen_name']
     num_results = 10
     re_patterns = st.init(st.words)
