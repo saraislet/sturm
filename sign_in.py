@@ -62,6 +62,7 @@ def get_verification():
             print('Error! Failed to get access token.')
 
     #now you have access!
+    global api
     api = tweepy.API(auth)
 
     #store in a db

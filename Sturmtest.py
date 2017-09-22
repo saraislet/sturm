@@ -10,19 +10,20 @@ import tweepy
 import plotly.plotly as py
 import plotly.graph_objs as go
 from IPython.display import clear_output
-import tokens
+import sign_in
+#import tokens
 
 
 # Set the private Twitter API keys.
-consumer_key = tokens.consumer_key
-consumer_secret = tokens.consumer_secret
-access_token = tokens.access_token
-access_token_secret = tokens.access_token_secret
+#consumer_key = tokens.consumer_key
+#consumer_secret = tokens.consumer_secret
+#access_token = tokens.access_token
+#access_token_secret = tokens.access_token_secret
 
 # Pass tokens to Tweepy's OAuthHandler.
-auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
-auth.set_access_token(access_token, access_token_secret)
-api = tweepy.API(auth)
+#auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+#auth.set_access_token(access_token, access_token_secret)
+api = sign_in.api
 
 # Define the bag of words
 words = ["kekistan",
@@ -94,7 +95,7 @@ def print_count(string, re_patterns):
 
 #TODO: define a class for results including methods to return stats & baddies
 #TODO: build try/exception methods
-#TODO: test rate limit
+#TODO: test rate limit, build cursor
     
 def test_followers(user, re_patterns, num_results):
     # Evaluate a list of followers for Nazis. Return an array of scores.
@@ -202,8 +203,8 @@ def check_rate_lookup():
     return api.rate_limit_status()['resources']['users']['/users/lookup']['remaining']
         
 
-user = "yonatanzunger"
-num_results = 800
-re_patterns = init(words)
-results = test_followers(user, re_patterns, num_results)
-print_results(results)
+#user = "yonatanzunger"
+#num_results = 800
+#re_patterns = init(words)
+#results = test_followers(user, re_patterns, num_results)
+#print_results(results)
