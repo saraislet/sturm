@@ -77,7 +77,12 @@ def get_verification():
                                  screen_name = userdata.screen_name, 
                                  bg_color = userdata.profile_background_color, 
                                  followers_count = userdata.followers_count, 
-                                 created_at = userdata.created_at)
+                                 created_at = userdata.created_at,
+                                 logged_in = True)
+
+@app.route('/app')
+def app():
+    return flask.render_template('app.html', logged_in = True)
 
 
 @app.route('/sturm', methods=['POST'])
@@ -89,11 +94,19 @@ def sturm():
     st.set_api(api_user)
     results = st.test_followers(user, re_patterns, num_results)
     st.print_results(results.scores)
+    if results.num_baddies > 0:
+        show_baddies = True
     
     return flask.render_template('results.html', 
                              user = user,
                              baddies_names = results.baddies_names,
-                             results = results.scores)
+                             results = results.scores,
+                             num_baddies = results.num_baddies,
+                             num_results = results.num_results,
+                             ratio = results.ratio,
+                             show_baddies = show_baddies,
+                             logged_in = True,)
+
 
 
 if __name__ == '__main__':

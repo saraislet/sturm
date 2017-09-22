@@ -7,7 +7,12 @@
 		{{results}}
 	</p>
 	<p>
-		{{baddies_names}}
+		{{ratio}}% identified as Nazis ({{num_baddies}} of {{num_results}}).
 	</p>
+	{% if show_baddies %}
+		<p>
+			{{baddies_names}}
+		</p>
+	{% endif %}
 </div>
 {% endblock %}

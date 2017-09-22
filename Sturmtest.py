@@ -224,7 +224,7 @@ class Results(object):
         self.baddies_names = get_baddies_names(baddies)
         self.num_results = len(scores)
         self.num_baddies = len(baddies)
-        self.ratio = len(baddies)/len(scores)
+        self.ratio = round(len(baddies)/len(scores)*100, 1)
 
 
 #user = "yonatanzunger"
