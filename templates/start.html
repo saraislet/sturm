@@ -1,6 +1,8 @@
 {% extends "layout.html" %}
 {% block body %}
-	    <h2>Sturmjäger</h2>
-    	<p>Click below to authenticate with Twitter. You'll be taken to Twitter to log in (if you aren't already) and to grant access. Afterward you'll be redirected back to Sturmjäger.</p>
-    	<p><a href="{{ redirect_url }}" class="w3-btn">Twitter Sign-in</a></p>
+<div class="container">
+    <h2>Sturmjäger</h2>
+	<p>Click below to authenticate with Twitter. You'll be taken to Twitter to log in (if you aren't already) and to grant access. Afterward you'll be redirected back to Sturmjäger.</p>
+	<a href="{{ redirect_url }}" class="w3-btn cobalt">Twitter Sign-in</a>
+</div>
 {% endblock %}
