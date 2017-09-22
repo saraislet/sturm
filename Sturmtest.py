@@ -172,7 +172,7 @@ def print_results(results):
     
     py.iplot(data, filename='basic-bar')
 
-def print_baddies_details(baddies):
+def print_baddies_details(baddies=baddies):
     # Print a list containing names, screen_names, and profile descriptions.
     countIter = iter([x for x in range(0,len(baddies))])
     
@@ -181,7 +181,11 @@ def print_baddies_details(baddies):
              + " / https://www.twitter.com/" + user.screen_name)
         print(user.description)
 
-def get_baddies_names(baddies):
+def get_baddies(baddies=baddies):
+    # Returns a list of baddies.
+    return baddies
+
+def get_baddies_names(baddies=baddies):
     # Return an array of screen_names from baddies.
     return [user.screen_name for user in baddies]
 

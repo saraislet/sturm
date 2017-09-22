@@ -9,7 +9,7 @@ import os
 from flask import Flask, request, render_template
 import flask
 import tweepy
-#from tweepy.auth import OAuthHandler
+import Sturmtest as st
 
 app = Flask(__name__)
 #app.config.from_pyfile('config.cfg', silent=True)
@@ -79,19 +79,20 @@ def get_verification():
                                  created_at = userdata.created_at)
 
 
-@app.route("/start")
-def start():
-    #auth done, app logic can begin
-    print("Variable db contains: " + str(db))
-    api = db['api']
-    userdata = api.me()
+@app.route('/start', methods=['POST'])
+def my_form_post():
 
-    return flask.render_template('followers.html', 
-                                 name = userdata.name, 
-                                 screen_name = userdata.screen_name, 
-                                 bg_color = userdata.profile_background_color, 
-                                 followers_count = userdata.followers_count, 
-                                 created_at = userdata.created_at)
+    user = request.form['screen_name']
+    num_results = 10
+    re_patterns = st.init(st.words)
+    results = st.test_followers(user, re_patterns, num_results)
+    st.print_results(results)
+    baddies = st.get_baddies()
+    
+    return flask.render_template('results.html', 
+                             user = user,
+                             baddies = baddies,
+                             results = results)
 
 
 if __name__ == '__main__':

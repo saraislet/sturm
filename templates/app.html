@@ -1,10 +1,18 @@
 {% extends "layout.html" %}
 {% block body %}
  
-<div class="block1">
+<div class="w3-container">
 <h1>Hello {{name}}!</h1>
-  <h2>You have {{followers_count}} followers.</h2>
-  <p>
-  </p>
+	<h2>You have {{followers_count}} followers.</h2>
+	<p>
+	</p>
+</div>
+<div class="w3-container">
+	<div class="w3-card4">
+		<form action="." method="POST" class="w3-container">
+		    <input type="text" name="screen_name" class="w3-input">
+		    <input type="submit" name="my-form" value="Send">
+		</form>
+	</div>
 </div>
 {% endblock %}
