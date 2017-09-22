@@ -80,8 +80,8 @@ def get_verification():
                                  created_at = userdata.created_at,
                                  logged_in = True)
 
-@app.route('/app')
-def app():
+@app.route('/main')
+def main():
     return flask.render_template('app.html', logged_in = True)
 
 
