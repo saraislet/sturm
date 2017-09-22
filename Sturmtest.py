@@ -25,9 +25,9 @@ from IPython.display import clear_output
 #auth.set_access_token(access_token, access_token_secret)
 
 
-def set_api(api):
+def set_api(api_user):
     global api
-    api = api
+    api = api_user
 
 # Define the bag of words
 words = ["kekistan",
