@@ -15,7 +15,7 @@ a {
   }
 
 w3-btn {
-	transition: color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+	/*transition: color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;*/
 	color:#fff!important;
 	background-color:#5555BB!important;
 }
