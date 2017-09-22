@@ -3,3 +3,4 @@ requests==2.9.1
 Flask==0.12
 tweepy==3.5.0
 plotly==2.0.15
+ipython==5.1.0
