@@ -7,7 +7,7 @@ Created on Tue Sep 12 20:12:44 2017
 
 import os, re
 from flask import Flask, request, render_template, redirect
-#from flask import session
+from flask import session
 import flask
 import tweepy
 import Sturmtest as st
@@ -23,7 +23,7 @@ consumer_secret = os.environ['consumer_secret']
 
 
 callback_url = 'https://murmuring-wildwood-21076.herokuapp.com/verify'
-session = dict()
+#session = dict()
 #db = dict()
 
 
@@ -66,9 +66,9 @@ def get_verification():
         userdata = api_user.me()
         
         #store in a db
-        session['api'] = api_user
-#        session['access_token_key']=auth.access_token
-#        session['access_token_secret']=auth.access_token_secret
+#        session['api'] = api_user
+        session['key'] = auth.access_token
+        session['secret'] = auth.access_token_secret
 #        print("Variable db contains: " + str(db))
         
         return flask.render_template('app.html', 
@@ -96,7 +96,11 @@ def main():
 
 @app.route('/sturm', methods=['POST'])
 def sturm():
-    api_user = session['api']
+    auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+    auth.set_access_token(session['key'], session['secret'])
+    api_user = tweepy.API(auth)
+    
+#    api_user = session['api']
     user = request.form['screen_name']
     num_results = request.form['num_results']
     
