@@ -39,7 +39,7 @@ def send_token():
         return render_template('start.html', redirect_url = redirect_url)
     except tweepy.TweepError:
         print('Error! Failed to get request token')
-        return redirect('../')
+        return flask.render_template('error.html')
 
 
 
@@ -80,7 +80,7 @@ def get_verification():
     except tweepy.TweepError:
         print('Error! Failed to get access token.')
         
-        return redirect('../')
+        return flask.render_template('error.html')
 
 
     
