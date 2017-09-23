@@ -15,9 +15,11 @@
 		</p>
 	{% endif %}
 	{% for user in baddies %}
-    	<div class="w3-container w3-card-4 w3-pale-red">
-    		<b>{{user.name}}</b><br>
-    		<font color="#657786">@{{user.screen_name}}</font><br>
+    	<div class="w3-container w3-card-4 w3-pale-red w3-margin w3-padding" style="max-width:800px;">
+    		<a href="https://www.twitter.com/{{user.screen_name}}">
+	    		<b>{{user.name}}</b><br>
+	    		<font color="#657786">@{{user.screen_name}}</font><br>
+    		</a>
     		{{user.description}}
     	</div>
 	{% endfor %}
