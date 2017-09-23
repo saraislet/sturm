@@ -69,7 +69,7 @@ def get_verification():
 #        session['api'] = api_user
         session['key'] = auth.access_token
         session['secret'] = auth.access_token_secret
-        session['userdata'] = userdata
+        session['userdata'] = userdata.__getstate__()['_json']
 #        print("Variable db contains: " + str(db))
         
         return flask.render_template('app.html', 
@@ -94,13 +94,13 @@ def get_verification():
 def main():
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(session['key'], session['secret'])
-    userdata = session['userdata']
+    userdata_json = session['userdata']
     
         
     return flask.render_template('app.html', 
                                  logged_in = True,
-                                 name = userdata.name,
-                                 followers_count = userdata.followers_count)
+                                 name = userdata_json['name'],
+                                 followers_count = userdata_json['followers_count'])
 
 
 @app.route('/sturm', methods=['POST'])
