@@ -14,5 +14,12 @@
 			{{baddies_names}}
 		</p>
 	{% endif %}
+	{% for user in baddies %}
+    	<div class="w3-container w3-card-4 w3-pale-red">
+    		<b>{{user.name}}</b><br>
+    		<font color="#657786">@{{user.screen_name}}</font><br>
+    		{{user.description}}
+    	</div>
+	{% endfor %}
 </div>
 {% endblock %}

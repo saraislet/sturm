@@ -117,12 +117,13 @@ def sturm():
     return flask.render_template('results.html', 
                              user = user,
                              baddies_names = results.baddies_names,
+                             baddies = results.baddies,
                              results = results.scores,
                              num_baddies = results.num_baddies,
                              num_results = results.num_results,
                              ratio = results.ratio,
                              show_baddies = show_baddies,
-                             logged_in = True,)
+                             logged_in = True)
 
 
 
