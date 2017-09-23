@@ -6,25 +6,31 @@ Created on Tue Sep 12 20:12:44 2017
 """
 
 import os, re
-from flask import Flask, request, render_template, redirect
-from flask import session
+from flask import Flask, request, render_template, redirect, session
 import flask
 import tweepy
 import Sturmtest as st
 
 app = Flask(__name__)
 
-#app.config.from_pyfile('config.cfg', silent=True)
-
 consumer_key = os.environ['consumer_key']
 consumer_secret = os.environ['consumer_secret']
-#OAUTH_TOKEN = os.environ['TWITTER_OAUTH_TOKEN']
-#OAUTH_TOKEN_SECRET = os.environ['TWITTER_OAUTH_TOKEN_SECRET']
-
 
 callback_url = 'https://murmuring-wildwood-21076.herokuapp.com/verify'
-#session = dict()
-#db = dict()
+
+
+def get_api():
+    # Rebuild OAuthHandler and return tweepy.API(auth) if session exists.
+    # Otherwise, return error_msg.
+    
+    try:
+        # Build OAuthHandler
+        auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+        auth.set_access_token(session['key'], session['secret'])
+        
+        return tweepy.API(auth)
+    except tweepy.TweepError:
+        return 'Error! Failed to build OAuthHandler!'
 
 
 @app.route('/')
@@ -40,22 +46,25 @@ def send_token():
         
         return render_template('start.html', redirect_url = redirect_url)
     except tweepy.TweepError:
-        print('Error! Failed to get request token')
-        return flask.render_template('error.html')
+        error_msg = 'Error! Failed to get request token'
+        print(error_msg)
+        
+        # TODO: Ideally, this would return an error message. Test this.
+        return flask.render_template('error.html',
+                                     error_msg = error_msg)
 
 
 
 
 @app.route("/verify")
 def get_verification():
-
-    #get the verifier key from the request url
+    # Get the verifier key from the request url.
     verifier = request.args['oauth_verifier']
 
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     print("session dict object is: " + str(session))
     token = session['request_token']
-#    del session['request_token']
+    del session['request_token']
 
     auth.request_token = token
 
@@ -65,12 +74,11 @@ def get_verification():
         api_user = tweepy.API(auth)
         userdata = api_user.me()
         
-        #store in a db
-#        session['api'] = api_user
+        # Store key and secret in session.
+        # get_api() rebuilds OAuthHandler and returns tweepy.API(auth)
         session['key'] = auth.access_token
         session['secret'] = auth.access_token_secret
         session['userdata'] = userdata.__getstate__()['_json']
-#        print("Variable db contains: " + str(db))
         
         return flask.render_template('app.html', 
                                  name = userdata.name, 
@@ -81,9 +89,11 @@ def get_verification():
                                  logged_in = True)
         
     except tweepy.TweepError:
-        print('Error! Failed to get access token.')
+        error_msg = 'Error! Failed to get access token.'
+        print(error_msg)
         
-        return flask.render_template('error.html')
+        return flask.render_template('error.html',
+                                     error_msg = error_msg)
 
 
     
@@ -105,6 +115,7 @@ def main():
 
 @app.route('/sturm', methods=['POST'])
 def sturm():
+    
     auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
     auth.set_access_token(session['key'], session['secret'])
     api_user = tweepy.API(auth)
@@ -113,17 +124,25 @@ def sturm():
     user = request.form['screen_name']
     num_results = request.form['num_results']
     
+    # Set num_results to default 30 if not a number.
+    # TODO: Validate form before submit?
     if num_results.isdigit():
         num_results = int(num_results)
     else:
         num_results = 30
         
+    # Remove @ from username, if it exists.
+    # TODO: add parsing to identify user from twitter.com URLs?
+    # TODO: Check if all status/user URLs begin with twitter.com/$screen_name.
+    # TODO: add error handling here if user enters bad URL
     user = re.sub(r"@","",user)
     
     re_patterns = st.init(st.words)
     st.set_api(api_user)
     results = st.test_followers(user, re_patterns, num_results)
     st.print_results(results.scores)
+    
+    # Don't show list of baddies if there aren't any.
     if results.num_baddies > 0:
         show_baddies = True
     else:

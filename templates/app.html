@@ -2,25 +2,26 @@
 {% block body %}
  
 <div class="w3-container">
-	<h1>Hello, {{name}}!</h1>
-	<h2>You have {{followers_count}} followers.</h2>
-	<p>
-	</p>
+    <h1>Hello, {{name}}!</h1>
+    <h2>You have {{followers_count}} followers.</h2>
+    <p>
+    </p>
 </div>
 <div class="w3-container">
-	<div class="w3-card-4" style="max-width:600px">
-		<div class="w3-container cobalt">
-			<h3>Assess followers:</h3>
-		</div>
-		<div class="w3-container">
-			<form action="/sturm" method="POST" class="w3-container">
-				<label class="w3-margin">Twitter @ name to test:</label>
-			    <input type="text" name="screen_name" class="w3-input w3-border w3-light-grey w3-margin">
-			    <label class="w3-margin">Number of followers to test:</label>
-			    <input type="text" name="num_results" value="20" class="w3-input w3-border w3-light-grey w3-margin">
-			    <input type="submit" name="my-form" value="Assess Followers" class="w3-btn cobalt w3-margin">
-			</form>
-		</div>
-	</div>
+    <div class="w3-card-4" style="max-width:600px">
+        <div class="w3-container cobalt">
+            <h3>Assess followers:</h3>
+        </div>
+        <div class="w3-container">
+            <form action="/sturm" method="POST" class="w3-container">
+                <label class="w3-margin">Twitter @ name to test:</label>
+                <input type="text" name="screen_name" class="w3-input w3-border w3-light-grey w3-margin">
+                <label class="w3-margin">Number of followers to test: </label>
+                <small class="note">(System can currently only test 150 followers, at about 20 seconds per 100.)</small>
+                <input type="text" name="num_results" value="20" class="w3-input w3-border w3-light-grey w3-margin">
+                <input type="submit" name="my-form" value="Assess Followers" class="w3-btn cobalt w3-margin">
+            </form>
+        </div>
+    </div>
 </div>
 {% endblock %}

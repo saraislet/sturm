@@ -6,6 +6,15 @@ The code currently uses a bag of words to develop and test some basic methods (a
 This project's goal is to develop a Twitter sign-in UI for users to assess tweets or accounts--like the [Twitter Block Chain plugin](https://github.com/satsukitv/twitter-block-chain), but enhanced with a Nazi detector.
 
 
+## TODO:
+* Store identified Nazis in SQL DB.
+  * Query DB for matches before testing.
+  * (Refresh stale matches?)
+* Processing currently hits worker timeout above ~150 accounts.
+  * Also need to build cursor and improve error handling here.	
+* Build checkboxes and block feature. Test for existing blocks and display in UI?
+* Review and improve documentation.
+
 ## Use case
 * User enters a username or URL of a user.
   * Sturmjäger offers to assess that user's followers and follows for potential Nazis.
@@ -15,17 +24,10 @@ This project's goal is to develop a Twitter sign-in UI for users to assess tweet
   * User may set a cutoff level.
   * User may select all, none, or use the cutoff level. User may use checkboxes to select/deselect.
   * User may elect to block these users.
-  
+
 * User enters a tweet's URL or status ID.
   * Sturmjäger offers to assess that tweet's likes or retweets for potential Nazis.
   * ...
-
-## TODO:
-* Store identified Nazis in SQL DB.
-  * Query DB for matches before testing.
-  * (Refresh stale matches?)
-* Processing currently hits worker timeout above ~150 accounts.
-* Build checkboxes and block feature. Test for existing blocks and display in UI?
 
 ## Questions:
 
@@ -43,7 +45,7 @@ This project's goal is to develop a Twitter sign-in UI for users to assess tweet
 * How much automated behavior is useful, or feasible?
 * Should the UI be reactive (e.g., display further profile information on hover)? How does that impact the UX? (e.g., can the UI still be fast and light, not sluggish?)
 * How much of this is feasible on a mobile device or a tablet?
-  
+
 #### Ethics questions
 * How do we identify false positives?
 * What is the rate of false positives? How can we track that?

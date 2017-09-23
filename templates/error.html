@@ -2,7 +2,8 @@
 {% block body %}
 <div class="container text">
     <h2>Sturmjäger</h2>
-    <p>Sturmjäger encountered an error. Please click below again to authenticate with Twitter.</p>
+    <p>{{error_msg}}</p>
+    <p>Sturmjäger encountered an error. Please click below again to authenticate with Twitter.</p>z
 	<a href="{{ redirect_url }}" class="w3-btn cobalt">Twitter Sign-in</a>
 </div>
 {% endblock %}
