@@ -19,8 +19,15 @@ This project's goal is to develop a Twitter sign-in UI for users to assess tweet
 * User enters a tweet's URL or status ID.
   * Sturmjäger offers to assess that tweet's likes or retweets for potential Nazis.
   * ...
-  
-### Questions:
+
+## TODO:
+* Store identified Nazis in SQL DB.
+  * Query DB for matches before testing.
+  * (Refresh stale matches?)
+* Processing currently hits worker timeout above ~150 accounts.
+* Build checkboxes and block feature. Test for existing blocks and display in UI?
+
+## Questions:
 
 #### Initial, architecture questions
 * How long does it take to block a list of users?
