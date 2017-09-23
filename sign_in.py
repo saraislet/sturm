@@ -6,12 +6,13 @@ Created on Tue Sep 12 20:12:44 2017
 """
 
 import os, re
-from flask import Flask, request, render_template, redirect
+from flask import Flask, request, render_template, redirect, session
 import flask
 import tweepy
 import Sturmtest as st
 
 app = Flask(__name__)
+
 #app.config.from_pyfile('config.cfg', silent=True)
 
 consumer_key = os.environ['consumer_key']
@@ -21,8 +22,8 @@ consumer_secret = os.environ['consumer_secret']
 
 
 callback_url = 'https://murmuring-wildwood-21076.herokuapp.com/verify'
-session = dict()
-db = dict()
+#session = dict()
+#db = dict()
 
 
 @app.route('/')
@@ -64,10 +65,10 @@ def get_verification():
         userdata = api_user.me()
         
         #store in a db
-        db['api']=api_user
-        db['access_token_key']=auth.access_token
-        db['access_token_secret']=auth.access_token_secret
-        print("Variable db contains: " + str(db))
+        session['api'] = api_user
+#        session['access_token_key']=auth.access_token
+#        session['access_token_secret']=auth.access_token_secret
+#        print("Variable db contains: " + str(db))
         
         return flask.render_template('app.html', 
                                  name = userdata.name, 
@@ -94,7 +95,7 @@ def main():
 
 @app.route('/sturm', methods=['POST'])
 def sturm():
-    
+    api_user = session['api']
     user = request.form['screen_name']
     num_results = request.form['num_results']
     
@@ -125,8 +126,14 @@ def sturm():
                              show_baddies = show_baddies,
                              logged_in = True)
 
-
+@app.route('/logout')
+def logout():
+    # remove variables from session
+    del session['request_token']
+    return redirect('../')
 
 if __name__ == '__main__':
     app.debug = True
     app.run()
+    
+app.secret_key = '\n\x8d-\xd1"\xfa;EG`\xc1?|\xd5*\xeaO\x91\x0c\x0c\x1as\x1e<'
