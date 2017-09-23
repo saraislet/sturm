@@ -6,7 +6,8 @@ Created on Tue Sep 12 20:12:44 2017
 """
 
 import os, re
-from flask import Flask, request, render_template, redirect, session
+from flask import Flask, request, render_template, redirect
+#from flask import session
 import flask
 import tweepy
 import Sturmtest as st
@@ -22,7 +23,7 @@ consumer_secret = os.environ['consumer_secret']
 
 
 callback_url = 'https://murmuring-wildwood-21076.herokuapp.com/verify'
-#session = dict()
+session = dict()
 #db = dict()
 
 
