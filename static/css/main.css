@@ -38,12 +38,19 @@ w3-btn {
     transition: background-color 0.2s ease-in-out;
 }
 
-.subtle,.hover-subtle:hover {
-    color:#fff!important;
-    background-color:#886785!important;
-    transition: background-color 0.2s ease-in-out;
+.error {
+	color:#333!important;
+	background-color:#fdd!important;
+	border-color:#333;
+	margin:8px!important;
 }
 
 .note {
 	color:#999!important;
+}
+
+.subtle,.hover-subtle:hover {
+    color:#fff!important;
+    background-color:#886785!important;
+    transition: background-color 0.2s ease-in-out;
 }

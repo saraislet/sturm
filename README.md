@@ -3,8 +3,15 @@
 
 The code currently uses a bag of words to develop and test some basic methods (and to help bring in additional training data). Testing demonstrated 14-22% rates of Nazi detection using only name, screen_name, and profile description.
 
-This project's goal is to develop a Twitter sign-in UI for users to assess tweets or accounts--like the [Twitter Block Chain plugin](https://github.com/satsukitv/twitter-block-chain), but enhanced with a Nazi detector.
+This project's initial goal is to develop a Twitter sign-in UI for users to assess tweets or accounts--like the [Twitter Block Chain plugin](https://github.com/satsukitv/twitter-block-chain), but enhanced with a Nazi detector.
 
+The long-term goal of Sturmjäger is to build a tool to protect Tweeters from Nazis. The [@NaziBlocker](https://twitter.com/NaziBlocker) blocklist is a great start, but Nazis create new accounts daily. @NaziBlocker and Sturmjäger will inevitably have false positives. I want to develop a tool that can be held accountable for false positives by enhancing a manual blocklist with Sturmjäger's automated detection and a receipt database.
+
+My goal is to make accountable blocklists easy by allowing users to look up evidence for why a user is on a targeted blocklist like @NaziBlocker (e.g., pointing out swastikas in a profile image, 14 words in their profile description, or tweets/retweets of explicit white supremacist ideology).
+
+One simple application of this receipts database would be allowing users to include an @$bot_screen_name in a reply or quote-tweet to have the bot block the indicated user and store the indicated tweet as a receipt for why that user was blocked. Any blocklist could take advantage of such a tool.  
+
+Like @NaziBlocker, this tool does not intend to target collaborators, but the design and methods might be used for that purpose, or other purposes. 
 
 ## TODO:
 * Store identified Nazis in SQL DB.
