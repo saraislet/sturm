@@ -7,7 +7,7 @@ This project's initial goal is to develop a Twitter sign-in UI for users to asse
 
 The long-term goal of Sturmjäger is to build a tool to protect Tweeters from Nazis. The [@NaziBlocker](https://twitter.com/NaziBlocker) blocklist is a great start, but Nazis create new accounts daily. @NaziBlocker and Sturmjäger will inevitably have false positives. I want to develop a tool that can be held accountable for false positives by enhancing a manual blocklist with Sturmjäger's automated detection and a receipt database.
 
-My goal is to make accountable blocklists easy by allowing users to look up evidence for why a user is on a targeted blocklist like @NaziBlocker (e.g., pointing out swastikas in a profile image, 14 words in their profile description, or tweets/retweets of explicit white supremacist ideology).
+I want to make accountable blocklists easy by allowing users to look up evidence for why a user is on a targeted blocklist like @NaziBlocker (e.g., pointing out swastikas in a profile image, 14 words in their profile description, or tweets/retweets of explicit white supremacist ideology).
 
 One simple application of this receipts database would be allowing users to include an @$bot_screen_name in a reply or quote-tweet to have the bot block the indicated user and store the indicated tweet as a receipt for why that user was blocked. Any blocklist could take advantage of such a tool.  
 
