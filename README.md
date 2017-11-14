@@ -14,13 +14,15 @@ One simple application of this receipts database would be allowing users to incl
 Like @NaziBlocker, this tool does not intend to target collaborators, but the design and methods might be used for that purpose, or other purposes. 
 
 ## TODO:
-* Store identified Nazis in SQL DB.
+* Store identified Nazis in SQL DB. (currently stored locally in sqlite3)
   * Query DB for matches before testing.
   * (Refresh stale matches?)
-* Processing currently hits worker timeout above ~150 accounts.
-  * Also need to build cursor and improve error handling here.	
+* Implement optimization and error-handling from NaziHunter Jupyter notebook
 * Build checkboxes and block feature. Test for existing blocks and display in UI?
+  * (Postpone this until implemented in Receiptacle.)
 * Review and improve documentation.
+* Clean @s and links from ML dataset.
+* Do some basic data analysis on the current dataset to help improve the bag of words and improve the dataset.
 
 ## Use case
 * User enters a username or URL of a user.
@@ -40,12 +42,16 @@ Like @NaziBlocker, this tool does not intend to target collaborators, but the de
 
 #### Initial, architecture questions
 * How long does it take to block a list of users?
-  * Current rate: approximately 250 seconds for 1000 users
+  * First prototype rate: approximately 250 seconds for 1000 accounts.
+  * Rate as of Nov 2017: approximately 18 seconds for 1000 accounts.
 * What's the best way to handle API limits here?
+  * If using batch queries, we can query basic info for 90k accounts or 100 tweets from 900 accounts.
+  * Query DB for recent results first, then query API.
 * In querying a list of users, should we display only the first 10, 20, 100? (Or include options?)
 * Can we store everything in memory while the app churns through a long list of users to assess or block?
   * This is not possible on Heroku (dynos). We'd need to use postgres. Will we need more than 10k rows? (Probably. This would cost $9/month to upgrade Heroku postgres support.)
 * Can we and should we test if users are already blocked before we assess, or before display? Should blocked users be displayed on the list, or mentioned in the UI? (e.g., "170 of 690 users are already blocked.")
+  * If over 1k, this is not feasible.
 
 #### Design questions
 * What options do users want, and what options are reasonable to provide?
